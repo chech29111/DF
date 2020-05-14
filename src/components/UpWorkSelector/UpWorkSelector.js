@@ -107,7 +107,7 @@ function WorkSelector({
         // }
         //console.log('initialValueDiv',initialValueDiv)
         const namePrefix = `division-${id}`;
-        console.log('initialValue',initialValue)
+
 
         if (initialValueDiv) {
             // Если есть начальное значение, значит это форма просмотра\редактирования. Значит:
