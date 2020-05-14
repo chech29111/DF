@@ -114,7 +114,7 @@ function WorkSelector({
             // мержим работы между уже выбранными в ведомости и оставшимися не выбранными,
             // чтобы предотвратить коллизию айдишников и
             // позволить выбрать(добавить) ранее не выбранные работы.
-            console.log('works',works);
+
 
             const notSelectedWorks = works.filter((works) => {
                 const idx = initialValueDiv.works.findIndex((initWork) => Number(initWork.id) === Number(works.id));
@@ -122,7 +122,7 @@ function WorkSelector({
 
             });
 
-            console.log('notSelectedWorks',notSelectedWorks)
+
             works = [...notSelectedWorks, ...initialValueDiv.works];
 
 
