@@ -160,7 +160,6 @@ function WorkSelector({
             //initialValueDiv.works = [];
         }
 
-        //
         return <DivisionSelector
             removeDivisionHandler={removeWork}
             title={title}
