@@ -4,10 +4,10 @@ import WorkTable from '../WorkTable/WorkTable';
 
 
 function WorkSelector({
-  works, initialValue, disabled, namePrefix,DivisionNamePrefix
+  works, initialValue, disabled, namePrefix,DivisionNamePrefix,options
 }) {
 
-
+console.log('options',options)
   const initialWorks = initialValue && initialValue.works ? initialValue.works : [];
   const [selectedWorks, changeSelectedWorks] = useState(
     initialWorks.length > 0 ? initialWorks : [],

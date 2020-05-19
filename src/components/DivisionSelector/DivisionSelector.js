@@ -6,6 +6,7 @@ import WorkSelector from '../WorkSelector/WorkSelector';
 import Line from '../Line/Line';
 
 function DivisionSelector({
+    options,
   divisionId,
   title,
   works,
@@ -18,6 +19,7 @@ function DivisionSelector({
   const removeDivisionSelector = () => {
     removeDivisionHandler(divisionId);
   };
+ // console.log('options',options)
 
   return (
     <>
@@ -39,6 +41,7 @@ function DivisionSelector({
       )}
       <Section title={`Добавление работ для ${title}`}>
         <WorkSelector
+            options={options}
           works={works}
           initialValue={initialValue}
           disabled={disabled}

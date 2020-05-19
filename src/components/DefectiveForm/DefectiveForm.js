@@ -209,7 +209,7 @@ function DefectiveForm() {
 
   return (
     <Form action="?" method="POST" onSubmit={formSubmitHandler}>
-      {<Header time={renderISOTime}/>}
+      {/*{<Header time={renderISOTime}/>}*/}
       <Body />
       <Footer saving={saving}/>
     </Form>

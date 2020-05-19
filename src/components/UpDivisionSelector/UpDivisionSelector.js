@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Section from '../DefectiveForm/Section/Section';
-import UpWorkSelector from '../UpWorkSelector/UpWorkSelector';
+import Divisions from '../Divisions/Divisions';
 
 
 function UpDivisionSelector({
@@ -37,7 +37,7 @@ function UpDivisionSelector({
                 </ButtonToolbar>
             )}
             <Section title={`Добавление работ для ${title}`}>
-                <UpWorkSelector
+                <Divisions
                     divisions={divisions}
                     initialValue={initialValue}
                     disabled={disabled}
