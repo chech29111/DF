@@ -551,7 +551,7 @@ function parseDivisionItem(dataItem) {
         typeTitle: dataItem.fldUpDivision.Title,
         title: dataItem.fldDivision.Title,
         works: [parseItemWork(dataItem)],
-        option: [parseItemWork(dataItem)],
+
     };
 }
 

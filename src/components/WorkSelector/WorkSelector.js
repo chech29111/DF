@@ -60,7 +60,7 @@ console.log('options',options)
     <>
       <StyledReactSelect
         asHeader
-        options={works}
+        options={initialValue.options}
         value={selectedWorks}
         isMulti
         getOptionLabel={getOptionLabel}

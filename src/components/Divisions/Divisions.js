@@ -145,7 +145,7 @@ function WorkSelector({
             : works;
 
 
-        console.log('selectedWorks[0].options',selectedWorks[0].options);
+        console.log('selectedWorks',selectedWorks);
 
 
 
