@@ -8,7 +8,7 @@ function WorkSelector({
                           divisionsInUp, initialValue, disabled, namePrefix, DivisionNamePrefix
                       }) {
 
-
+console.log('divisionsInUp',divisionsInUp)
 
     const type = useContext(TypeContext);
     const isDisplayForm = type === 'disp';
@@ -51,7 +51,7 @@ const divisionsInOptions = divisionsInUp;
                 option = evtData.option;
                 //console.log('evtData.option',evtData.option)
                 pickWorkHandler(option);
-                option.options = option.works
+                //option.options = option.works
                 option.works = []
                 break;
             case 'remove-value':
