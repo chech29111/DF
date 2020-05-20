@@ -17,7 +17,7 @@ console.log('divisionsInUp',divisionsInUp)
 
 
 
-const divisionsInOptions = divisionsInUp;
+console.log('initialValue',initialValue)
 
     const initialWorks = initialValue && initialValue.divisions ? initialValue.divisions : [];
     const [selectedWorks, changeSelectedWorks] = useState(
@@ -29,8 +29,8 @@ const divisionsInOptions = divisionsInUp;
 
 
 
-    const pickWorkHandler = (option) => {
-        changeSelectedWorks([...selectedWorks, option]);
+    const pickWorkHandler = (allWorks) => {
+        changeSelectedWorks([...selectedWorks, allWorks]);
 
     };
 
@@ -44,20 +44,20 @@ const divisionsInOptions = divisionsInUp;
 
     const changeWorks = (selectedValues, evtData) => {
         const { action } = evtData;
-        let option;
+        let allWorks;
 
         switch (action) {
             case 'select-option':
-                option = evtData.option;
+                allWorks = evtData.option;
                 //console.log('evtData.option',evtData.option)
-                pickWorkHandler(option);
-                //option.options = option.works
-                option.works = []
+                pickWorkHandler(allWorks);
+                allWorks.options = allWorks.works
+                allWorks.works = []
                 break;
             case 'remove-value':
             case 'pop-value':
-                option = evtData.removedValue;
-                removeWorkHandler(option.id);
+                allWorks = evtData.removedValue;
+                removeWorkHandler(allWorks.id);
                 break;
             case 'clear':
                 removeWorkHandler(null);
@@ -83,7 +83,7 @@ const divisionsInOptions = divisionsInUp;
 
 
 
-   // console.log('selectedWorks',selectedWorks);
+    console.log('selectedWorks',selectedWorks);
 
     const divisionSelectorsConts = selectedWorks.map((selectorDivision) => {
 
