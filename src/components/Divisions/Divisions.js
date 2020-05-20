@@ -139,10 +139,13 @@ function WorkSelector({
         const divisionValue = selectedWorks.find((item) => item.id === selectorDivision.id);
         const {id, title} = divisionValue;
         let {works} = divisionValue;
+        let {options} = divisionValue.options
+        console.log('divisionValue.options',divisionValue.options)
+
 
         const initialValueDiv = isDisplayForm || isEditForm
             ? selectedWorks.find((item) => item.id === selectorDivision.id)
-            : selectedWorks.options;
+            : divisionValue.options;
 
 
         console.log('selectedWorks',selectedWorks);
