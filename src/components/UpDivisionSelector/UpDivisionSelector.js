@@ -17,7 +17,7 @@ function UpDivisionSelector({
     const removeDivisionSelector = () => {
         removeDivisionHandler(divisionId);
     };
-
+console.log('divisions',divisions)
     return (
         <>
 
@@ -38,7 +38,7 @@ function UpDivisionSelector({
             )}
             <Section title={`Добавление работ для ${title}`}>
                 <Divisions
-                    divisions={divisions}
+                    divisionsInUp={divisions}
                     initialValue={initialValue}
                     disabled={disabled}
                     DivisionNamePrefix={DivisionNamePrefix}

@@ -5,7 +5,7 @@ import DivisionSelector from "../DivisionSelector/DivisionSelector";
 import {getData, getItem} from "../../helpers/helpers";
 
 function WorkSelector({
-                          divisions, initialValue, disabled, namePrefix, DivisionNamePrefix
+                          divisionsInUp, initialValue, disabled, namePrefix, DivisionNamePrefix
                       }) {
 
 
@@ -16,52 +16,8 @@ function WorkSelector({
     const isNewForm = type === 'new';
 
 
-    // const [state, setState] = useState({
-    //     divisions: [],
-    //     updivisions: [],
-    //     selectedDivisions: [],
-    //     selectedUpDivisions: [],
-    //     selectedUpDivisionsNew: [],
-    //     itemData: {
-    //         divisions: [],
-    //         updivisions: [],
-    //     },
-    //     itemUpData: {
-    //         divisions: [],
-    //         updivisions: [],
-    //     },
-    // });
-    //
-    // // аналог componentDidMount - получаем данные.
-    // // обновляем стэйт.
-    // // Зависимость от изменения значения переменной type;
-    // useEffect(() => {
-    //     if (isNewForm) {
-    //         getData().then((data) => {
-    //             setState((currentState) => ({
-    //                 ...currentState,
-    //                 updivisions: [...data.divisions]
-    //             }));
-    //         });
-    //
-    //     } else if (isEditForm || isDisplayForm) {
-    //         Promise.all([getData(), getItem()]).then((data) => {
-    //                 const itemUpDivisions = [...data[1].updivisions];
-    //                 //console.log('itemUpDivisions',itemUpDivisions)
-    //                 console.log('data',data)
-    //                 setState((currentState) => ({
-    //                     ...currentState,
-    //                     divisions: [...data[0].divisions],
-    //                     selectedUpDivisions: itemUpDivisions,
-    //                     selectedUpDivisionsNew: [],
-    //                     itemUpData: itemUpDivisions,
-    //                 }));
-    //             }
-    //         );
-    //     }
-    // }, [isDisplayForm, isEditForm, isNewForm, type]);
 
-
+const divisionsInOptions = divisionsInUp;
 
     const initialWorks = initialValue && initialValue.divisions ? initialValue.divisions : [];
     const [selectedWorks, changeSelectedWorks] = useState(
@@ -74,15 +30,8 @@ function WorkSelector({
 
 
     const pickWorkHandler = (option) => {
-        console.log('option',option)
+        changeSelectedWorks([...selectedWorks, option]);
 
-
-
-        let alloption =[...selectedWorks, option];
-        //console.log("pickWorkHandler->alloption",alloption);
-        changeSelectedWorks(alloption);
-       // console.log("pickWorkHandler->selectedWorks",selectedWorks);
-        //changeSelectedWorks([...selectedWorks, option]);
     };
 
     const removeWorkHandler = (id) => {
@@ -90,6 +39,7 @@ function WorkSelector({
             ? []
             : selectedWorks.filter((work) => Number(work.id) !== Number(id));
         changeSelectedWorks(newSelectedWorks);
+
     };
 
     const changeWorks = (selectedValues, evtData) => {
@@ -99,7 +49,7 @@ function WorkSelector({
         switch (action) {
             case 'select-option':
                 option = evtData.option;
-                console.log('evtData.option',evtData.option)
+                //console.log('evtData.option',evtData.option)
                 pickWorkHandler(option);
                 option.options = option.works
                 option.works = []
@@ -119,6 +69,7 @@ function WorkSelector({
 
     const removeWork = (id) => {
         changeSelectedWorks([...selectedWorks.filter((work) => Number(work.id) !== Number(id))]);
+
     };
 
 
@@ -132,7 +83,7 @@ function WorkSelector({
 
 
 
-    console.log('selectedWorks',selectedWorks);
+   // console.log('selectedWorks',selectedWorks);
 
     const divisionSelectorsConts = selectedWorks.map((selectorDivision) => {
 
@@ -140,7 +91,7 @@ function WorkSelector({
         const {id, title} = divisionValue;
         let {works} = divisionValue;
 
-        console.log('divisionValue.options',divisionValue.options)
+        //console.log('divisionValue.options',divisionValue.options)
 
 
         const initialValueDiv = isDisplayForm || isEditForm
@@ -148,7 +99,7 @@ function WorkSelector({
             : divisionValue;
 
 
-        console.log('selectedWorks',selectedWorks);
+
 
 
 
@@ -160,7 +111,7 @@ function WorkSelector({
         //         initialValue.works = []
         //     }
         // }
-        console.log('initialValueDiv',initialValueDiv)
+        //console.log('initialValueDiv',initialValueDiv)
         const namePrefix = `division-${id}`;
 
         if (initialValueDiv) {
@@ -173,12 +124,13 @@ function WorkSelector({
                 return idx === -1;
 
             });
-
+//console.log('notSelectedWorks',notSelectedWorks)
             works = [...notSelectedWorks, ...initialValueDiv.works];
             //console.log("UpWorkSelector->works",works);
             //console.log("UpWorkSelector->initialValueDiv",initialValueDiv);
             //initialValueDiv.works = [];
         }
+
 
         return <DivisionSelector
             removeDivisionHandler={removeWork}
@@ -199,14 +151,14 @@ function WorkSelector({
 
     const selectedDivisionsTitles = selectedWorks.map((selectedDiv) => <input type="hidden"
                                                                                         name={`divisionTitle-${selectedDiv.id}`}
-                                                                                        value={selectedDiv.title}
-                                                                                        key={selectedDiv.id}/>);
+                                                                              value={selectedDiv.title}
+                                                                                     key={selectedDiv.id}/>);
 
     return (
         <>
             <StyledReactSelect
                 asHeader
-                options={divisions}
+                options={divisionsInUp}
                 value={selectedWorks}
                 isMulti
                 getOptionLabel={getOptionLabel}
