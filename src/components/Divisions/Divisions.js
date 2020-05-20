@@ -142,7 +142,7 @@ function WorkSelector({
 
         const initialValueDiv = isDisplayForm || isEditForm
             ? selectedWorks.find((item) => item.id === selectorDivision.id)
-            : works;
+            : selectedWorks.options;
 
 
         console.log('selectedWorks',selectedWorks);
@@ -157,7 +157,7 @@ function WorkSelector({
         //         initialValue.works = []
         //     }
         // }
-        //console.log('initialValueDiv',initialValueDiv)
+        console.log('initialValueDiv',initialValueDiv)
         const namePrefix = `division-${id}`;
 
         if (initialValueDiv) {
@@ -175,12 +175,9 @@ function WorkSelector({
             //console.log("UpWorkSelector->works",works);
             //console.log("UpWorkSelector->initialValueDiv",initialValueDiv);
             //initialValueDiv.works = [];
-
-
         }
 
         return <DivisionSelector
-            options={selectedWorks[0].options}
             removeDivisionHandler={removeWork}
             title={title}
             divisionId={id}
