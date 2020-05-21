@@ -53,10 +53,10 @@ function WorkSelector({
 
                 allWorks = evtData.option;
                 console.log('allWorks1.works',allWorks.works);
-
                 if (allWorks.works.length !== 0){
                     console.log('v if')
                     allWorks.allWorks = allWorks.works;
+                    console.log('allWorks.allWorks',allWorks.allWorks)
                     allWorks.works = []
 
                 }
@@ -118,6 +118,7 @@ function WorkSelector({
         const {id, title} = divisionValue;
         let {works} = divisionValue;
 
+
         //console.log('divisionValue.options',divisionValue.options)
 
 
@@ -157,6 +158,12 @@ function WorkSelector({
             //console.log("UpWorkSelector->initialValueDiv",initialValueDiv);
             //initialValueDiv.works = [];
         }
+        const optionWorks = divisionsInUp.find((item) => item.id === selectorDivision.id)
+        if (!initialValueDiv.allWorks) {
+            initialValueDiv.allWorks = optionWorks.works;
+        }
+        console.log('optionWorks',optionWorks)
+        console.log('initialValueDiv',initialValueDiv)
 
 
         return <DivisionSelector
