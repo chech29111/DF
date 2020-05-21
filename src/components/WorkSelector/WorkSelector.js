@@ -60,7 +60,7 @@ function WorkSelector({
     <>
       <StyledReactSelect
         asHeader
-        options={initialValue.options}
+        options={initialValue.allWorks}
         value={selectedWorks}
         isMulti
         getOptionLabel={getOptionLabel}

@@ -51,7 +51,7 @@ console.log('initialValue',initialValue)
                 allWorks = evtData.option;
                 //console.log('evtData.option',evtData.option)
                 pickWorkHandler(allWorks);
-                allWorks.options = allWorks.works
+                allWorks.allWorks = allWorks.works
                 allWorks.works = []
                 break;
             case 'remove-value':
