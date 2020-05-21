@@ -8,7 +8,7 @@ function WorkSelector({
                           divisionsInUp, initialValue, disabled, namePrefix, DivisionNamePrefix
                       }) {
 
-console.log('divisionsInUp',divisionsInUp)
+//console.log('divisionsInUp',divisionsInUp)
 
     const type = useContext(TypeContext);
     const isDisplayForm = type === 'disp';
@@ -17,7 +17,7 @@ console.log('divisionsInUp',divisionsInUp)
 
 
 
-console.log('initialValue',initialValue)
+//console.log('initialValue',initialValue)
 
     const initialWorks = initialValue && initialValue.divisions ? initialValue.divisions : [];
     const [selectedWorks, changeSelectedWorks] = useState(
@@ -30,7 +30,9 @@ console.log('initialValue',initialValue)
 
 
     const pickWorkHandler = (allWorks) => {
+
         changeSelectedWorks([...selectedWorks, allWorks]);
+
 
     };
 
@@ -39,7 +41,7 @@ console.log('initialValue',initialValue)
             ? []
             : selectedWorks.filter((work) => Number(work.id) !== Number(id));
         changeSelectedWorks(newSelectedWorks);
-
+        console.log('selectedWorks ->',selectedWorks)
     };
 
     const changeWorks = (selectedValues, evtData) => {
@@ -48,11 +50,37 @@ console.log('initialValue',initialValue)
 
         switch (action) {
             case 'select-option':
+
                 allWorks = evtData.option;
+                console.log('allWorks1.works',allWorks.works);
+
+                if (allWorks.works.length !== 0){
+                    console.log('v if')
+                    allWorks.allWorks = allWorks.works;
+                    allWorks.works = []
+
+                }
+                else{
+                    console.log('v else')
+                    allWorks.works = allWorks.allWorks;
+                    allWorks.works = []
+                }
+
+
+                console.log('allWorks2',allWorks);
+
+                // if (selectedWorks.works === []){
+                //     allWorks.allWorks = allWorks.allWorks
+                // }
+                // else{
+                //     allWorks.allWorks = allWorks.works
+                //     allWorks.works = []
+                // }
+
                 //console.log('evtData.option',evtData.option)
                 pickWorkHandler(allWorks);
-                allWorks.allWorks = allWorks.works
-                allWorks.works = []
+
+
                 break;
             case 'remove-value':
             case 'pop-value':
@@ -86,7 +114,6 @@ console.log('initialValue',initialValue)
     console.log('selectedWorks',selectedWorks);
 
     const divisionSelectorsConts = selectedWorks.map((selectorDivision) => {
-
         const divisionValue = selectedWorks.find((item) => item.id === selectorDivision.id);
         const {id, title} = divisionValue;
         let {works} = divisionValue;
