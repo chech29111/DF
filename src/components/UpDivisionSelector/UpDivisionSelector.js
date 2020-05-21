@@ -17,7 +17,7 @@ function UpDivisionSelector({
     const removeDivisionSelector = () => {
         removeDivisionHandler(divisionId);
     };
-console.log('divisions',divisions)
+//console.log('divisions',divisions)
     return (
         <>
 

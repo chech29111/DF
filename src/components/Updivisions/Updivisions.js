@@ -262,7 +262,7 @@ function Updivisions() {
             });
             //divisions = [...notSelectedWorks, initialValue.divisions];
             //divisions = [initialValue.divisions,notSelectedWorks];
-            console.log('divisions',divisions)
+            //console.log('divisions',divisions)
 
         }
         return <div><UpDivisionSelector

@@ -41,7 +41,7 @@ function WorkSelector({
             ? []
             : selectedWorks.filter((work) => Number(work.id) !== Number(id));
         changeSelectedWorks(newSelectedWorks);
-        console.log('selectedWorks ->',selectedWorks)
+        //console.log('selectedWorks ->',selectedWorks)
     };
 
     const changeWorks = (selectedValues, evtData) => {
@@ -52,22 +52,22 @@ function WorkSelector({
             case 'select-option':
 
                 allWorks = evtData.option;
-                console.log('allWorks1.works',allWorks.works);
+               // console.log('allWorks1.works',allWorks.works);
                 if (allWorks.works.length !== 0){
-                    console.log('v if')
+                    //console.log('v if')
                     allWorks.allWorks = allWorks.works;
-                    console.log('allWorks.allWorks',allWorks.allWorks)
+                    //console.log('allWorks.allWorks',allWorks.allWorks)
                     allWorks.works = []
 
                 }
                 else{
-                    console.log('v else')
+                   // console.log('v else')
                     allWorks.works = allWorks.allWorks;
                     allWorks.works = []
                 }
 
 
-                console.log('allWorks2',allWorks);
+                //console.log('allWorks2',allWorks);
 
                 // if (selectedWorks.works === []){
                 //     allWorks.allWorks = allWorks.allWorks
@@ -111,7 +111,7 @@ function WorkSelector({
 
 
 
-    console.log('selectedWorks',selectedWorks);
+    //console.log('selectedWorks',selectedWorks);
 
     const divisionSelectorsConts = selectedWorks.map((selectorDivision) => {
         const divisionValue = selectedWorks.find((item) => item.id === selectorDivision.id);
@@ -162,8 +162,8 @@ function WorkSelector({
         if (!initialValueDiv.allWorks) {
             initialValueDiv.allWorks = optionWorks.works;
         }
-        console.log('optionWorks',optionWorks)
-        console.log('initialValueDiv',initialValueDiv)
+        //console.log('optionWorks',optionWorks)
+        //console.log('initialValueDiv',initialValueDiv)
 
 
         return <DivisionSelector
@@ -203,7 +203,7 @@ function WorkSelector({
                 noOptionsMessage={() => <span>Доступных для выбора работ нет.</span>}
             />
             {divisionSelectorsConts}
-            {/*{selectedDivisionsTitles}*/}
+            {selectedDivisionsTitles}
             {/*<WorkTable*/}
             {/*    works={selectedWorks}*/}
             {/*    disabled={disabled}*/}
