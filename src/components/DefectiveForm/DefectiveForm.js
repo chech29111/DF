@@ -26,7 +26,7 @@ function DefectiveForm() {
      * @return {String|String[]} - значение элемента или массив значений HTML коллекции.
      */
     const getElementValue = (element) => {
-        console.log('element', element)
+
         let value;
         if (element instanceof HTMLCollection) {
             value = [...element].map((e) => e.value);
@@ -62,11 +62,9 @@ function DefectiveForm() {
 
         new Set(formElementsName)
             .forEach((name) => {
+                console.log('save - name',name);
                 const element = formElements[name];
                 const elementValue = getElementValue(element);
-
-                console.log('element', element)
-
 
                 if (name === 'orgunit') {
                     const orgunitTitle = element.options[element.selectedIndex].textContent;
@@ -76,81 +74,88 @@ function DefectiveForm() {
                     jsonFormValues.title = `ДФ-${orgunitTitle}-${renderISOTime}`;
                 } else if (name === 'condition') {
                     jsonFormValues[name] = elementValue;
-                } else if (!name.startsWith('divisionTitle')) {
+                }
+                else if (name.startsWith('updivision-')){
+                // else if (!(name.startsWith('divisionTitle') || name.startsWith('updivisionTitle'))) {
                     // Если не предыдущие условия не сработали, то это элемент выбора работы
                     const [, updivisionId, , divisionId, , workId, field] = name.split('-');
+                    // console.log(name)
 
-                    const divisionUpIdx = jsonFormValues.ListDataJSON.updivisions.findIndex((division) => Number(division.id) === Number(updivisionId));
-                    //const divisionIdx = jsonFormValues.ListDataJSON.updivisions.divisions.findIndex((division) => Number(division.id) === Number(divisionId));
+                    const upDivisionIndex = jsonFormValues.ListDataJSON.updivisions.findIndex((upDivision) => Number(upDivision.id) === Number(updivisionId));
+                    //const divisionIndex = jsonFormValues.ListDataJSON.updivisions.divisions.findIndex((division) => Number(division.id) === Number(divisionId));
+                    // Если тип ещё не запомнен, то создаём объект для типа
+                    // Сразу добавляем текущий тип работы
+                    // И запоминаем в массиве updivisions
+                    if (upDivisionIndex === -1) {
+                        const works = [
+                            {
+                                id: workId,
+                                [field]: elementValue,
+                            },
+                        ];
 
-                    let divisions;
-                    let updivision;
-                    let works;
-
-                    // Если раздел ещё не запомнен, то создаём объект для раздела
-                    // Сразу добавляем текущую работу
-                    // И запоминаем в массиве divisions
-                    if (divisionUpIdx === -1) {
-
-                        divisions = [
+                        const divisions = [
                             {
                                 id: Number(divisionId),
                                 title: formElements[`divisionTitle-${divisionId}`].value,
-                                works: [
-                                    {
-                                        id: workId,
-                                        [field]: elementValue,
-                                    },
-                                ],
+                                works: works,
                             }
                         ];
-                        updivision = {
+
+                        const updivision = {
                             id: Number(updivisionId),
                             title: formElements[`updivisionTitle-${updivisionId}`].value,
                             divisions: divisions,
                         };
 
-
+                        console.log('save - updivision',updivision );
                         jsonFormValues.ListDataJSON.updivisions.push(updivision);
+                    }
+                    else {
+                        //   // Иначе такой тип уже есть и нам нужно проделать то же самое с видом
+                        //console.log('divisions', jsonFormValues.ListDataJSON.updivisions[upDivisionIndex].divisions)
 
-                    } else {
-                        //   // Иначе такой тип уже есть и нам нужно проделать то же самое с работой раздела
-                        //console.log('divisions', jsonFormValues.ListDataJSON.updivisions[divisionUpIdx].divisions)
+                        const divisionIndex = jsonFormValues.ListDataJSON.updivisions[upDivisionIndex].divisions.findIndex((division) => Number(division.id) === Number(divisionId));
+                        //console.log('где ищу:',jsonFormValues.ListDataJSON.updivisions[upDivisionIndex].divisions)
+                        //console.log('divisionIndex',divisionIndex)
+                        if (divisionIndex === -1) {
+                            const works =  [
+                                {
+                                    id: workId,
+                                    [field]: elementValue,
+                                },
+                            ];
 
-                        const divisionIdx = jsonFormValues.ListDataJSON.updivisions[divisionUpIdx].divisions.findIndex((division) => division.id === divisionId);
-
-                        let division;
-                        if (divisionIdx === -1) {
-                            division = [{
+                            const divisions = [{
                                 id: Number(divisionId),
                                 title: formElements[`divisionTitle-${divisionId}`].value,
-                                works: [
-                                    {
-                                        id: workId,
-                                        [field]: elementValue,
-                                    },
-                                ],
+                                works: works,
                             }];
-                            console.log('division',division)
-                            jsonFormValues.ListDataJSON.updivisions[divisionUpIdx].divisions.push(division);
-                        } else {
-                            // Иначе такая работа уже есть и нам нужно проделать то же самое с работой раздела
-                            console.log('wors', jsonFormValues.ListDataJSON.updivisions[divisionUpIdx].divisions[divisionIdx]);
-                            const workIdx = jsonFormValues.ListDataJSON.updivisions[divisionUpIdx].divisions[divisionIdx].findIndex((work) => work.id === workId);
 
-                            if (workIdx === -1) {
+                           // console.log('save - division',divisions)
+                                jsonFormValues.ListDataJSON.updivisions[upDivisionIndex].divisions.push(divisions[0]);
+                        } else {
+                            // Иначе такая вид уже есть и нам нужно проделать то же самое с работой раздела
+                            //console.log('find work',jsonFormValues.ListDataJSON.updivisions[upDivisionIndex].divisions[divisionIndex]);
+                            const workIndex = jsonFormValues.ListDataJSON.updivisions[upDivisionIndex].divisions[divisionIndex].works.findIndex((work) => Number(work.id) === Number(workId));
+
+                            if (workIndex === -1) {
                                 const work = {
                                     id: workId,
                                     [field]: elementValue,
                                 };
-                                jsonFormValues.ListDataJSON.updivisions[divisionUpIdx].divisions[divisionIdx].push(work);
+
+                               // console.log('save - works', work);
+                                jsonFormValues.ListDataJSON.updivisions[upDivisionIndex].divisions[divisionIndex].works.push(work);
                             } else {
-                                jsonFormValues.ListDataJSON.updivisions[divisionUpIdx].divisions[divisionIdx].works[workIdx][field] = elementValue;
+                                //console.log('update - works', field);
+                                jsonFormValues.ListDataJSON.updivisions[upDivisionIndex].divisions[divisionIndex].works[workIndex][field] = elementValue;
                             }
                         }
                     }
                 }
             });
+
         console.log('jsonFormValues', jsonFormValues)
         //return jsonFormValues;
     };
@@ -172,7 +177,7 @@ function DefectiveForm() {
 
     return (
         <Form action="?" method="POST" onSubmit={formSubmitHandler}>
-            {/*{<Header time={renderISOTime}/>}*/}
+            {<Header time={renderISOTime}/>}
             <Body/>
             <Footer saving={saving}/>
         </Form>

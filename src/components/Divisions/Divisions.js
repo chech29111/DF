@@ -158,10 +158,19 @@ function WorkSelector({
             //console.log("UpWorkSelector->initialValueDiv",initialValueDiv);
             //initialValueDiv.works = [];
         }
-        const optionWorks = divisionsInUp.find((item) => item.id === selectorDivision.id)
+        const optionWorks = divisionsInUp.find((item) => item.id === selectorDivision.id);
+
+        const optionWorksNew = optionWorks.works.filter(option => !works.find(({id}) => Number(option.id) === Number(id)));
+
+
+        console.log('optionWorks.works',optionWorks.works);
+        console.log('works',works)
+        console.log('optionWorksNew',optionWorksNew)
         if (!initialValueDiv.allWorks) {
-            initialValueDiv.allWorks = optionWorks.works;
+            initialValueDiv.allWorks = optionWorksNew;
         }
+
+        console.log('initialValueDiv.allWorks',initialValueDiv.allWorks)
         //console.log('optionWorks',optionWorks)
         //console.log('initialValueDiv',initialValueDiv)
 
