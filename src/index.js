@@ -8,7 +8,7 @@
 
 // You need starts-with for localhost on IE,
 // but you dont need it in sharepoint.
-import 'core-js/features/string/starts-with';
+//import 'core-js/features/string/starts-with';
 import 'core-js/features/object';
 import 'core-js/features/array';
 import 'core-js/features/map';

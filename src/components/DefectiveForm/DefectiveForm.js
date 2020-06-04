@@ -42,6 +42,7 @@ function DefectiveForm() {
      * @param {HTMLCollection} formElements - Все элементы формы, элементы формы.
      * @return {Object} - объект для отправки данных формы в теле запроса.
      */
+
     const formToJSON = (formElements) => {
         const notForJSONFieldNames = ['copy'];
         const jsonFormValues = Object.create(null);
@@ -49,7 +50,7 @@ function DefectiveForm() {
         jsonFormValues.title = null;
         jsonFormValues.ListDataJSON = {updivisions: []};
 
-
+        console.log('formElements',formElements[`divisionTitle-1`])
         // Имена элементов формы с фильтром НЕ ПУСТО и не copy, так как его значение сохранять не надо.
         const formElementsName = [...formElements]
 
@@ -62,7 +63,7 @@ function DefectiveForm() {
 
         new Set(formElementsName)
             .forEach((name) => {
-                console.log('save - name',name);
+                // console.log('save - name',name);
                 const element = formElements[name];
                 const elementValue = getElementValue(element);
 
@@ -86,6 +87,7 @@ function DefectiveForm() {
                     // Если тип ещё не запомнен, то создаём объект для типа
                     // Сразу добавляем текущий тип работы
                     // И запоминаем в массиве updivisions
+                    //console.log('formElements',formElements)
                     if (upDivisionIndex === -1) {
                         const works = [
                             {
@@ -94,13 +96,15 @@ function DefectiveForm() {
                             },
                         ];
 
-                        const divisions = [
-                            {
-                                id: Number(divisionId),
-                                title: formElements[`divisionTitle-${divisionId}`].value,
-                                works: works,
-                            }
-                        ];
+
+                            const divisions = [
+                                {
+                                    id: Number(divisionId),
+                                    title: formElements[`divisionTitle-${divisionId}`].value !== '' ? formElements[`divisionTitle-${divisionId}`].value : formElements[`divisionTitle-${divisionId}`][0].value,
+                                    works: works,
+                                }
+                            ];
+
 
                         const updivision = {
                             id: Number(updivisionId),
@@ -128,7 +132,7 @@ function DefectiveForm() {
 
                             const divisions = [{
                                 id: Number(divisionId),
-                                title: formElements[`divisionTitle-${divisionId}`].value,
+                                title: formElements[`divisionTitle-${divisionId}`].value !== '' ? formElements[`divisionTitle-${divisionId}`].value : formElements[`divisionTitle-${divisionId}`][0].value,
                                 works: works,
                             }];
 
@@ -157,7 +161,7 @@ function DefectiveForm() {
             });
 
         console.log('jsonFormValues', jsonFormValues)
-        //return jsonFormValues;
+        return jsonFormValues;
     };
 
     const formSubmitHandler = (evt) => {
@@ -177,7 +181,7 @@ function DefectiveForm() {
 
     return (
         <Form action="?" method="POST" onSubmit={formSubmitHandler}>
-            {<Header time={renderISOTime}/>}
+            <Header time={renderISOTime}/>
             <Body/>
             <Footer saving={saving}/>
         </Form>
