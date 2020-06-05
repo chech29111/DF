@@ -122,6 +122,7 @@ function Header({ time }) {
           </Col>
           <Col sm={6}>
             <Form.Control
+                required
               as="select"
               name="orgunit"
               value={state.selectedUnit}

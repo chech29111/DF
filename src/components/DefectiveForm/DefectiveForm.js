@@ -96,14 +96,55 @@ function DefectiveForm() {
                             },
                         ];
 
+                        let divisions;
+                        if (formElements[`divisionTitle-${divisionId}`] instanceof HTMLCollection){
+                            if (formElements[`divisionTitle-${divisionId}`].length === 1){
+                                divisions = [
+                                    {
+                                        id: Number(divisionId),
+                                        title: formElements[`divisionTitle-${divisionId}`].value,
+                                        works: works,
+                                    }
+                                ];
+                            }
+                            else{
+                                divisions = [
+                                    {
+                                        id: Number(divisionId),
+                                        title: formElements[`divisionTitle-${divisionId}`][0].value,
+                                        works: works,
+                                    }
+                                ];
+                            }
+                        }
+                        else {
+                            if (formElements[`divisionTitle-${divisionId}`].value !== ''){
+                                divisions = [
+                                    {
+                                        id: Number(divisionId),
+                                        title: formElements[`divisionTitle-${divisionId}`].value,
+                                        works: works,
+                                    }
+                                ];
+                            }
+                            else{
+                                divisions = [
+                                    {
+                                        id: Number(divisionId),
+                                        title: formElements[`divisionTitle-${divisionId}`][0].value,
+                                        works: works,
+                                    }
+                                ];
+                            }
+                        }
 
-                            const divisions = [
-                                {
-                                    id: Number(divisionId),
-                                    title: formElements[`divisionTitle-${divisionId}`].value !== '' ? formElements[`divisionTitle-${divisionId}`].value : formElements[`divisionTitle-${divisionId}`][0].value,
-                                    works: works,
-                                }
-                            ];
+                            // const divisions = [
+                            //     {
+                            //         id: Number(divisionId),
+                            //         title: formElements[`divisionTitle-${divisionId}`].length === 1 ? formElements[`divisionTitle-${divisionId}`].value : formElements[`divisionTitle-${divisionId}`][0].value,
+                            //         works: works,
+                            //     }
+                            // ];
 
 
                         const updivision = {
@@ -129,12 +170,53 @@ function DefectiveForm() {
                                     [field]: elementValue,
                                 },
                             ];
+                            let divisions;
+                            if (formElements[`divisionTitle-${divisionId}`] instanceof HTMLCollection){
+                                if (formElements[`divisionTitle-${divisionId}`].length === 1){
+                                    divisions = [
+                                        {
+                                            id: Number(divisionId),
+                                            title: formElements[`divisionTitle-${divisionId}`].value,
+                                            works: works,
+                                        }
+                                    ];
+                                }
+                                else{
+                                    divisions = [
+                                        {
+                                            id: Number(divisionId),
+                                            title: formElements[`divisionTitle-${divisionId}`][0].value,
+                                            works: works,
+                                        }
+                                    ];
+                                }
+                            }
+                            else {
+                                if (formElements[`divisionTitle-${divisionId}`].value !== ''){
+                                    divisions = [
+                                        {
+                                            id: Number(divisionId),
+                                            title: formElements[`divisionTitle-${divisionId}`].value,
+                                            works: works,
+                                        }
+                                    ];
+                                }
+                                else{
+                                    divisions = [
+                                        {
+                                            id: Number(divisionId),
+                                            title: formElements[`divisionTitle-${divisionId}`][0].value,
+                                            works: works,
+                                        }
+                                    ];
+                                }
+                            }
 
-                            const divisions = [{
-                                id: Number(divisionId),
-                                title: formElements[`divisionTitle-${divisionId}`].value !== '' ? formElements[`divisionTitle-${divisionId}`].value : formElements[`divisionTitle-${divisionId}`][0].value,
-                                works: works,
-                            }];
+                            // const divisions = [{
+                            //     id: Number(divisionId),
+                            //     title: formElements[`divisionTitle-${divisionId}`].length === 1 ? formElements[`divisionTitle-${divisionId}`].value : formElements[`divisionTitle-${divisionId}`][0].value,
+                            //     works: works,
+                            // }];
 
                            // console.log('save - division',divisions)
                                 jsonFormValues.ListDataJSON.updivisions[upDivisionIndex].divisions.push(divisions[0]);
