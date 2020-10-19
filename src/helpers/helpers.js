@@ -12,7 +12,7 @@ export const getItemID = () => (window.location.href.indexOf('localhost') !== -1
 
 /**
  * @description Группирует работы по разделу, так как нельзя сгруппировать их сразу во время запроса
- * @author Vadim Gorbenko <gorbenkovv@nipigas.ru>
+ * @author Shevchenko V
  * @param {JSON} data - ответ от шарика с ключём d и массивом results внутри.
  * @returns {Object}
  */
